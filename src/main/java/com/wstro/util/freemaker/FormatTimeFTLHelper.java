@@ -1,19 +1,13 @@
 package com.wstro.util.freemaker;
 
+import com.wstro.util.DateUtils;
+import freemarker.core.Environment;
+import freemarker.template.*;
+
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Date;
 import java.util.Map;
-
-import com.wstro.util.DateUtils;
-import com.wstro.util.JoeyUtil;
-
-import freemarker.core.Environment;
-import freemarker.template.TemplateDirectiveBody;
-import freemarker.template.TemplateDirectiveModel;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateModel;
-import freemarker.template.TemplateModelException;
-import freemarker.template.TemplateScalarModel;
 
 /**
  * Freemaker格式化时间戳为指定日期
@@ -45,7 +39,7 @@ public class FormatTimeFTLHelper implements TemplateDirectiveModel {
 			asString = pattern.getAsString();
 		}
 		long flag = Long.valueOf(scalarModel.getAsString());
-		out.write(DateUtils.format(JoeyUtil.fomartDate(flag * 1000), asString));
+		out.write(DateUtils.format(new Date(flag * 1000), asString));
 		body.render(out);
 	}
 

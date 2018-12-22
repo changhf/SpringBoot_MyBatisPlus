@@ -63,7 +63,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRoleEntity> i
 	}
 
 	@Override
-	public Page<SysRoleEntity> queryListByPage(Integer offset, Integer limit, String roleName, String sort,
+	public Page<SysRoleEntity> queryListByPage(Integer pageNo, Integer pageSize, String roleName, String sort,
 			Boolean order) {
 		Wrapper<SysRoleEntity> wrapper = new EntityWrapper<SysRoleEntity>();
 		if (StringUtils.isNoneBlank(sort) && null != order) {
@@ -72,7 +72,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRoleEntity> i
 		if (StringUtils.isNoneBlank(roleName)) {
 			wrapper.like("role_name", roleName);
 		}
-		Page<SysRoleEntity> page = new Page<>(offset, limit);
+		Page<SysRoleEntity> page = new Page<>(pageNo, pageSize);
 		return this.selectPage(page, wrapper);
 	}
 

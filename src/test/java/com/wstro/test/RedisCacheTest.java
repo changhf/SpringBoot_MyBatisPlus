@@ -2,6 +2,7 @@ package com.wstro.test;
 
 import javax.annotation.Resource;
 
+import org.junit.Test;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 /**
@@ -17,7 +18,7 @@ public class RedisCacheTest {
 	@Resource
 	StringRedisTemplate stringRedisTemplate;
 
-	//@Test
+	@Test
 	public void redisTest() throws Exception {
 		// 保存字符串
 		stringRedisTemplate.opsForValue().set("aaa", "111");

@@ -10,30 +10,29 @@ import org.springframework.context.annotation.ComponentScan;
 
 /**
  * SpringBoot
- * 
+ *
  * @author Joey
  * @Email 2434387555@qq.com
- *
  */
 @ServletComponentScan
 @SpringBootApplication
-@ComponentScan(basePackages = { "com.wstro" })
+@ComponentScan(basePackages = {"com.wstro"})
 public class App extends SpringBootServletInitializer {
 
-	@SuppressWarnings("static-access")
-	public static void main(String[] args) {
-		SpringApplication app = new SpringApplication(App.class);
-		app.setBannerMode(Mode.CONSOLE);
-		app.run(App.class, args);
+    @SuppressWarnings("static-access")
+    public static void main(String[] args) {
+        SpringApplication app = new SpringApplication(App.class);
+        app.setBannerMode(Mode.CONSOLE);
+        app.run(App.class, args);
 //		SpringApplication.run(App.class,args);
-	}
+    }
 
-	/**
-	 * 部署Tomcat
-	 */
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(App.class);
-	}
+    /**
+     * 部署Tomcat
+     */
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(App.class);
+    }
 
 }
