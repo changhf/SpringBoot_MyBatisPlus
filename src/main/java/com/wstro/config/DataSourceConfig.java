@@ -249,7 +249,7 @@ public class DataSourceConfig {
 		dataSource.setDefaultTargetDataSource(primaryDataSource);
 		Map<Object, Object> targetDataSources = new HashMap<Object, Object>();
 		// 多数据源(如果使用一个的话就配置一个)
-		// 要添加的话在写一个获取数据源的方法
+		// 要添加的话再写一个获取数据源的方法
 		targetDataSources.put(DataSourceContextHolder.PRIMARY_DATA_SOURCE, primaryDataSource);
 		//targetDataSources.put(DataSourceContextHolder.DATA_SOURCE_B, dataSource2);
 		dataSource.setTargetDataSources(targetDataSources);

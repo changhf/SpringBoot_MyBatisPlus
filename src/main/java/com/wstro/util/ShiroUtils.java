@@ -33,7 +33,7 @@ public class ShiroUtils {
      * @return SysAdminEntity
      */
     public static SysUserEntity getAdminEntity() {
-        return (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
+        return (SysUserEntity) getSubject().getPrincipal();
     }
 
     /**
@@ -82,7 +82,7 @@ public class ShiroUtils {
     }
 
     /**
-     * 获取验证码
+     * 获取kaptcha验证码
      *
      * @param key 验证码Key
      * @return String
