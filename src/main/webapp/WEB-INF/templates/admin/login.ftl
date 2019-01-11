@@ -43,7 +43,7 @@
             <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-            <img alt="如果看不清楚，请单击图片刷新！" class="pointer" src="${rc.contextPath}/admin/captcha.jpg" onclick="refreshCode()">
+            <img alt="如果看不清楚，请单击图片刷新！" class="pointer" src="${rc.contextPath}/admin/kaptcha" onclick="refreshCode()">
             &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="refreshCode()">点击刷新</a>
         </div>
 
@@ -69,7 +69,7 @@
     });
 
     function refreshCode() {
-        $(".pointer").attr("src", "${rc.contextPath}/admin/captcha.jpg?t=" + new Date().getTime());
+        $(".pointer").attr("src", "${rc.contextPath}/admin/kaptcha?t=" + new Date().getTime());
     }
     
     function login(event) {

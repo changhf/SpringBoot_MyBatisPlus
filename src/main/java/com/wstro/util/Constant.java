@@ -34,7 +34,8 @@ public class Constant {
     @Value("${database.adminId}")
     public Long adminId;
 
-    public final String loginSessionAttr = "ADMINLOGINCOOKIEKEY";
+    public static final String loginSessionAttr = "ADMINLOGINCOOKIEKEY";
+    public static final String VERIFY_CODE = "VERIFY_CODE";
 
     /**
      * 菜单类型

@@ -12,7 +12,8 @@
 
 
     <properties>
-        <kaptcha.version>0.0.9</kaptcha.version>
+        <!--<kaptcha.version>0.0.9</kaptcha.version>-->
+        <com.github.kaptha.version>2.3.2</com.github.kaptha.version>
         <commons-lang.version>3.3.2</commons-lang.version>
         <quartz.version>2.3.0</quartz.version>
         <springboot-redis.version>1.3.3.RELEASE</springboot-redis.version>
@@ -82,9 +83,15 @@
 
         <!-- 验证码生成器 -->
         <dependency>
-            <groupId>com.github.axet</groupId>
+            <groupId>com.github.penggle</groupId>
             <artifactId>kaptcha</artifactId>
-            <version>${kaptcha.version}</version>
+            <version>${com.github.kaptha.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>javax.servlet-api</artifactId>
+                    <groupId>javax.servlet</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- 图片缩略图 -->
         <dependency>

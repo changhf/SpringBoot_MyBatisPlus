@@ -3,6 +3,7 @@ package com.wstro.config;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
@@ -11,8 +12,6 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,9 +25,9 @@ import com.wstro.shiro.UserRealm;
  *
  */
 @Configuration
+@Slf4j
 public class ShiroConfiguration {
 
-	private Logger logger = LoggerFactory.getLogger(DataSourceConfig.class);
 
 	/**
 	 * ShiroFilterFactoryBean 处理拦截资源文件问题。
@@ -41,7 +40,7 @@ public class ShiroConfiguration {
 	 */
 	@Bean
 	public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
-		logger.info("ShiroConfiguration.shiroFilter()");
+		log.info("ShiroConfiguration.shiroFilter()");
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 
 		// 必须设置 SecurityManager
@@ -59,7 +58,7 @@ public class ShiroConfiguration {
 		// <!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
 		// <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
 		filterChainDefinitionMap.put("/statics/**", "anon");
-		filterChainDefinitionMap.put("/admin/captcha.jpg", "anon");
+		filterChainDefinitionMap.put("/admin/kaptcha", "anon");
 		filterChainDefinitionMap.put("/admin/sys/login", "anon");
 		filterChainDefinitionMap.put("/admin/sys/logout", "anon");
 		filterChainDefinitionMap.put("/admin/**", "authc");
@@ -79,7 +78,7 @@ public class ShiroConfiguration {
 	public SecurityManager securityManager() {
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
 		// 设置realm.
-		securityManager.setRealm(getUserRealm());
+		securityManager.setRealm(myUserRealm());
 
 		// 注入缓存管理器;
 		securityManager.setCacheManager(ehCacheManager());// 这个如果执行多次，也是同样的一个对象;
@@ -96,7 +95,7 @@ public class ShiroConfiguration {
 	 * @return
 	 */
 	@Bean
-	public UserRealm getUserRealm() {
+	public UserRealm myUserRealm() {
 		UserRealm myShiroRealm = new UserRealm();
 		return myShiroRealm;
 	}
@@ -122,7 +121,7 @@ public class ShiroConfiguration {
 	 */
 	@Bean
 	public EhCacheManager ehCacheManager() {
-		logger.info("ShiroConfiguration.getEhCacheManager()");
+		log.info("ShiroConfiguration.getEhCacheManager()");
 		EhCacheManager cacheManager = new EhCacheManager();
 		cacheManager.setCacheManagerConfigFile("classpath:ehcache-shiro.xml");
 		return cacheManager;
@@ -135,11 +134,11 @@ public class ShiroConfiguration {
 	 */
 	@Bean
 	public SimpleCookie rememberMeCookie() {
-		logger.info("ShiroConfiguration.rememberMeCookie()");
+		log.info("ShiroConfiguration.rememberMeCookie()");
 		// 这个参数是cookie的名称，对应前端的checkbox 的name = rememberMe
 		SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
 		// <!-- 记住我cookie生效时间30天 ,单位秒;-->
-		simpleCookie.setMaxAge(259200);
+		simpleCookie.setMaxAge(60);
 		return simpleCookie;
 	}
 
@@ -150,7 +149,7 @@ public class ShiroConfiguration {
 	 */
 	@Bean
 	public CookieRememberMeManager rememberMeManager() {
-		logger.info("ShiroConfiguration.rememberMeManager()");
+		log.info("ShiroConfiguration.rememberMeManager()");
 		CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
 		cookieRememberMeManager.setCookie(rememberMeCookie());
 		byte[] cipherKey = Base64.decode("wGiHplamyXlVB11UXWol8g==");

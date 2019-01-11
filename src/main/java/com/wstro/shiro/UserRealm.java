@@ -7,6 +7,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.wstro.service.SysMenuService;
+import com.wstro.service.SysUserService;
+import com.wstro.util.Constant;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -24,6 +28,8 @@ import org.slf4j.LoggerFactory;
 
 import com.wstro.entity.SysMenuEntity;
 import com.wstro.entity.SysUserEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  * Shiro认证
@@ -32,29 +38,34 @@ import com.wstro.entity.SysUserEntity;
  * @Email 2434387555@qq.com
  *
  */
+@Slf4j
 public class UserRealm extends AuthorizingRealm {
-	private Logger logger = LoggerFactory.getLogger(UserRealm.class);
-
+	@Autowired
+	private SysMenuService sysMenuService;
+	@Autowired
+	private SysUserService sysUserService;
+	@Autowired
+	private Constant constant;
 	/**
 	 * 授权(验证权限时调用)
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		logger.info("授权(验证权限时调用)");
+		log.info("授权(验证权限时调用)");
 		SysUserEntity user = (SysUserEntity) principals.getPrimaryPrincipal();
 		Long userId = user.getUserId();
 
 		List<String> permsList = null;
 
 		// 系统管理员，拥有最高权限
-		if (userId.equals(TempUtil.constant.adminId)) {
-			List<SysMenuEntity> menuList = TempUtil.sysMenuService.queryList(new HashMap<String, Object>());
+		if (userId.equals(constant.adminId)) {
+			List<SysMenuEntity> menuList = sysMenuService.queryList(new HashMap<String, Object>());
 			permsList = new ArrayList<>(menuList.size());
 			for (SysMenuEntity menu : menuList) {
 				permsList.add(menu.getPerms());
 			}
 		} else {
-			permsList = TempUtil.sysUserService.queryAllPerms(userId);
+			permsList = sysUserService.queryAllPerms(userId);
 		}
 
 		// 用户权限列表
@@ -76,11 +87,11 @@ public class UserRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		logger.info("认证(登录时调用)");
+		log.info("认证(登录时调用)");
 		String username = (String) token.getPrincipal();
 		String password = new String((char[]) token.getCredentials());
 		// 查询用户信息
-		SysUserEntity user = TempUtil.sysUserService.queryByUserName(username);
+		SysUserEntity user = sysUserService.queryByUserName(username);
 
 		// 账号不存在
 		if (user == null) {
