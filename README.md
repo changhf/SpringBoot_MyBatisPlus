@@ -64,7 +64,7 @@ wstro
 - 如果不想要Redis服务,注解掉RedisConfig.java	的 @Configuration注解
 
 - Eclipse、IDEA运行App.java，则可启动项目
-- 项目访问路径：http://localhost:8088/wstro
+- 项目访问路径：http://localhost:8088/wstro/admin/
 - 账号密码：admin/admin
 
 
@@ -75,7 +75,7 @@ wstro
 			spring.datasource.username
 			spring.datasource.password
 			
-项目整合了多数据源,注解方法  @DataSource(这里写数据源名称) 如 DataSourceContextHolder.DATA_SOURCE_B 建议数据源名称都定义在此类中，方便维护
+项目整合了多`数据源`,注解方法  @DataSource(这里写数据源名称) 如 DataSourceContextHolder.DATA_SOURCE_B 建议数据源名称都定义在此类中，方便维护
 多数据源需要自己去开启，具体在DataSourceConfig.java
 						
 

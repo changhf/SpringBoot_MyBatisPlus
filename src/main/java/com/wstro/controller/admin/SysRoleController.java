@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.wstro.util.BaseResult;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +25,6 @@ import com.wstro.service.SysRoleService;
 import com.wstro.util.DateUtils;
 import com.wstro.util.JoeyUtil;
 import com.wstro.util.PageUtils;
-import com.wstro.util.R;
 
 /**
  * 角色管理
@@ -47,8 +47,8 @@ public class SysRoleController extends AbstractController {
 	 */
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:role:list")
-	public R list(Integer offset, Integer limit, String sort, String order,
-			@RequestParam(name = "search", required = false) String roleName) {
+	public BaseResult list(Integer offset, Integer limit, String sort, String order,
+						   @RequestParam(name = "search", required = false) String roleName) {
 		offset = (offset / limit) + 1;
 		Boolean flag = null; // 排序逻辑
 		if (StringUtils.isNoneBlank(order)) {
@@ -61,7 +61,7 @@ public class SysRoleController extends AbstractController {
 		Page<SysRoleEntity> roleList = sysRoleService.queryListByPage(offset, limit, roleName, sort, flag);
 		PageUtils pageUtil = new PageUtils(roleList.getRecords(), roleList.getTotal(), roleList.getSize(),
 				roleList.getCurrent());
-		return R.ok().put("page", pageUtil);
+		return BaseResult.ok().put("page", pageUtil);
 	}
 
 	/**
@@ -69,11 +69,11 @@ public class SysRoleController extends AbstractController {
 	 */
 	@RequestMapping("/select")
 	@RequiresPermissions("sys:role:select")
-	public R select() {
+	public BaseResult select() {
 		// 查询列表数据
 		List<SysRoleEntity> list = sysRoleService.queryList(new HashMap<String, Object>());
 
-		return R.ok().put("list", list);
+		return BaseResult.ok().put("list", list);
 	}
 
 	/**
@@ -81,14 +81,14 @@ public class SysRoleController extends AbstractController {
 	 */
 	@RequestMapping("/info/{roleId}")
 	@RequiresPermissions("sys:role:info")
-	public R info(@PathVariable("roleId") Long roleId) {
+	public BaseResult info(@PathVariable("roleId") Long roleId) {
 		SysRoleEntity role = sysRoleService.selectById(roleId);
 
 		// 查询角色对应的菜单
 		List<Long> menuIdList = sysRoleMenuService.queryMenuIdList(roleId);
 		role.setMenuIdList(menuIdList);
 
-		return R.ok().put("role", role);
+		return BaseResult.ok().put("role", role);
 	}
 
 	/**
@@ -98,9 +98,9 @@ public class SysRoleController extends AbstractController {
 	 */
 	@RequestMapping("/save")
 	@RequiresPermissions("sys:role:save")
-	public R save(String roleName, String remark, @RequestParam("menuIds") String ids) throws ParseException {
+	public BaseResult save(String roleName, String remark, @RequestParam("menuIds") String ids) throws ParseException {
 		if (StringUtils.isBlank(roleName)) {
-			return R.error("角色名称不能为空");
+			return BaseResult.error("角色名称不能为空");
 		}
 		SysRoleEntity roleEntity = new SysRoleEntity();
 		roleEntity.setRoleName(roleName);
@@ -112,11 +112,11 @@ public class SysRoleController extends AbstractController {
 		List<Long> menuIds = new ArrayList<Long>();
 		Collections.addAll(menuIds, menuId);
 		if (menuIds.size() < 0) {
-			return R.error("请为角色授权");
+			return BaseResult.error("请为角色授权");
 		}
 		roleEntity.setMenuIdList(menuIds);
 		sysRoleService.save(roleEntity);
-		return R.ok();
+		return BaseResult.ok();
 	}
 
 	/**
@@ -124,9 +124,9 @@ public class SysRoleController extends AbstractController {
 	 */
 	@RequestMapping("/update")
 	@RequiresPermissions("sys:role:update")
-	public R update(Long roleId, String roleName, String remark, @RequestParam("menuIds") String ids) {
+	public BaseResult update(Long roleId, String roleName, String remark, @RequestParam("menuIds") String ids) {
 		if (StringUtils.isBlank(roleName)) {
-			return R.error("角色名称不能为空");
+			return BaseResult.error("角色名称不能为空");
 		}
 		SysRoleEntity roleEntity = new SysRoleEntity();
 		roleEntity.setRoleId(roleId);
@@ -138,13 +138,13 @@ public class SysRoleController extends AbstractController {
 		List<Long> menuIds = new ArrayList<Long>();
 		Collections.addAll(menuIds, menuId);
 		if (menuIds.size() < 0) {
-			return R.error("请为角色授权");
+			return BaseResult.error("请为角色授权");
 		}
 		roleEntity.setMenuIdList(menuIds);
 
 		sysRoleService.update(roleEntity);
 
-		return R.ok();
+		return BaseResult.ok();
 	}
 
 	/**
@@ -152,11 +152,11 @@ public class SysRoleController extends AbstractController {
 	 */
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:role:delete")
-	public R delete(@RequestParam("roleIds") String ids) {
+	public BaseResult delete(@RequestParam("roleIds") String ids) {
 		JSONArray jsonArray = JSONArray.parseArray(ids);
 		Long[] roleIds = toArrays(jsonArray);
 		sysRoleService.deleteBatch(roleIds);
-		return R.ok();
+		return BaseResult.ok();
 	}
 
 }

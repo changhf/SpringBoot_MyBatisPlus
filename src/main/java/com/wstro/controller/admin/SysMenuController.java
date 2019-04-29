@@ -22,7 +22,7 @@ import com.wstro.util.Constant.MenuType;
 import com.wstro.util.EhCacheNames;
 import com.wstro.util.EhcacheUtil;
 import com.wstro.util.PageUtils;
-import com.wstro.util.R;
+import com.wstro.util.BaseResult;
 import com.wstro.util.RRException;
 
 /**
@@ -44,8 +44,8 @@ public class SysMenuController extends AbstractController {
 	 */
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:menu:list")
-	public R list(Integer offset, Integer limit, String sort, String order,
-			@RequestParam(name = "search", required = false) String search) {
+	public BaseResult list(Integer offset, Integer limit, String sort, String order,
+						   @RequestParam(name = "search", required = false) String search) {
 		Map<String, String> searchList = parseObject(search, "q_parentName", "q_menuName");
 		String parentName = null;
 		String menuName = null;
@@ -66,7 +66,7 @@ public class SysMenuController extends AbstractController {
 		List<SysMenuEntity> menuList = sysMenuService.queryList(map);
 		int total = sysMenuService.queryTotal(map);
 		PageUtils pageUtil = new PageUtils(menuList, total, limit, (offset / limit) + 1);
-		return R.ok().put("page", pageUtil);
+		return BaseResult.ok().put("page", pageUtil);
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class SysMenuController extends AbstractController {
 	 */
 	@RequestMapping("/select")
 	@RequiresPermissions("sys:menu:select")
-	public R select() {
+	public BaseResult select() {
 		// 查询列表数据
 		List<SysMenuEntity> menuList = sysMenuService.queryNotButtonList();
 		// 添加顶级菜单
@@ -85,7 +85,7 @@ public class SysMenuController extends AbstractController {
 		root.setOpen(true);
 		menuList.add(root);
 
-		return R.ok().put("menuList", menuList);
+		return BaseResult.ok().put("menuList", menuList);
 	}
 
 	/**
@@ -93,11 +93,11 @@ public class SysMenuController extends AbstractController {
 	 */
 	@RequestMapping("/perms")
 	@RequiresPermissions("sys:menu:perms")
-	public R perms() {
+	public BaseResult perms() {
 		// 查询列表数据
 		List<SysMenuEntity> menuList = sysMenuService.queryList(new HashMap<String, Object>());
 
-		return R.ok().put("menuList", menuList);
+		return BaseResult.ok().put("menuList", menuList);
 	}
 
 	/**
@@ -105,9 +105,9 @@ public class SysMenuController extends AbstractController {
 	 */
 	@RequestMapping("/info/{menuId}")
 	@RequiresPermissions("sys:menu:info")
-	public R info(@PathVariable("menuId") Long menuId) {
+	public BaseResult info(@PathVariable("menuId") Long menuId) {
 		SysMenuEntity menu = sysMenuService.selectById(menuId);
-		return R.ok().put("menu", menu);
+		return BaseResult.ok().put("menu", menu);
 	}
 
 	/**
@@ -115,16 +115,16 @@ public class SysMenuController extends AbstractController {
 	 */
 	@RequestMapping("/save")
 	@RequiresPermissions("sys:menu:save")
-	public R save(SysMenuEntity menu) {
+	public BaseResult save(SysMenuEntity menu) {
 		// 数据校验
 		verifyForm(menu);
 		if (sysMenuService.insert(menu)) {
 			// 清空菜单缓存
 			String cacheName = EhCacheNames.menuCacheName + getAdminId();
 			ehcacheUtil.remove(EhcacheUtil.ADMINMENUEHCACHENAME, cacheName);
-			return R.ok();
+			return BaseResult.ok();
 		} else {
-			return R.error("保存失败!");
+			return BaseResult.error("保存失败!");
 		}
 	}
 
@@ -133,7 +133,7 @@ public class SysMenuController extends AbstractController {
 	 */
 	@RequestMapping("/update")
 	@RequiresPermissions("sys:menu:update")
-	public R update(SysMenuEntity menu) {
+	public BaseResult update(SysMenuEntity menu) {
 		// 数据校验
 
 		verifyForm(menu);
@@ -141,9 +141,9 @@ public class SysMenuController extends AbstractController {
 			// 清空菜单缓存
 			String cacheName = EhCacheNames.menuCacheName + getAdminId();
 			ehcacheUtil.remove(EhcacheUtil.ADMINMENUEHCACHENAME, cacheName);
-			return R.ok();
+			return BaseResult.ok();
 		} else {
-			return R.error("修改失败!");
+			return BaseResult.error("修改失败!");
 		}
 	}
 
@@ -152,12 +152,12 @@ public class SysMenuController extends AbstractController {
 	 */
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:menu:delete")
-	public R delete(@RequestParam("menuIds") String ids) {
+	public BaseResult delete(@RequestParam("menuIds") String ids) {
 		JSONArray jsonArray = JSONArray.parseArray(ids);
 		Long[] menuIds = toArrays(jsonArray);
 		for (Long menuId : menuIds) {
 			if (menuId.longValue() <= 16) {
-				return R.error("系统菜单，不能删除");
+				return BaseResult.error("系统菜单，不能删除");
 			}
 		}
 
@@ -176,7 +176,7 @@ public class SysMenuController extends AbstractController {
 				}
 			}
 			if (menuList.size() > 0 && flag) {
-				return R.error("请先删除子菜单或按钮");
+				return BaseResult.error("请先删除子菜单或按钮");
 			}
 		}
 
@@ -186,7 +186,7 @@ public class SysMenuController extends AbstractController {
 		String cacheName = EhCacheNames.menuCacheName + getAdminId();
 		ehcacheUtil.remove(EhcacheUtil.ADMINMENUEHCACHENAME, cacheName);
 
-		return R.ok();
+		return BaseResult.ok();
 	}
 
 	/**

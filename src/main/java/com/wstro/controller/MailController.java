@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
+import com.wstro.util.BaseResult;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -15,8 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.wstro.util.R;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -39,14 +38,14 @@ public class MailController extends AbstractController {
 	 * 发送
 	 */
 	@RequestMapping("/send")
-	public R send(String email) {
+	public BaseResult send(String email) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom("2434387555@qq.com");// 发送者.
 		message.setTo(email);// 接收者.
 		message.setSubject("测试邮件（邮件主题）");// 邮件主题.
 		message.setText("这是邮件内容");// 邮件内容.
 		mailSender.send(message);// 发送邮件
-		return R.ok();
+		return BaseResult.ok();
 	}
 
 	/**
@@ -56,7 +55,7 @@ public class MailController extends AbstractController {
 	 * @throws IOException
 	 */
 	@RequestMapping("/sendTemplate")
-	public R sendTemplateMail(String email, Model model, HttpServletRequest request) throws Exception {
+	public BaseResult sendTemplateMail(String email, Model model, HttpServletRequest request) throws Exception {
 		MimeMessage mimeMessage = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 		helper.setFrom("2434387555@qq.com");// 发送者.
@@ -78,7 +77,7 @@ public class MailController extends AbstractController {
 		helper.addInline("testphoto", file);
 
 		mailSender.send(mimeMessage);
-		return R.ok();
+		return BaseResult.ok();
 	}
 
 }

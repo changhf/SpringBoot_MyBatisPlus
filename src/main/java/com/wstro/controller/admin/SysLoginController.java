@@ -39,7 +39,7 @@ import com.wstro.util.EhCacheNames;
 import com.wstro.util.EhcacheUtil;
 import com.wstro.util.GetIpAddress;
 import com.wstro.util.HttpUtil;
-import com.wstro.util.R;
+import com.wstro.util.BaseResult;
 import com.wstro.util.RRException;
 import com.wstro.util.ShiroUtils;
 
@@ -130,16 +130,16 @@ public class SysLoginController extends AbstractController {
 	@ResponseBody
 	@RequestMapping(value = "/sys/login", method = RequestMethod.POST)
 	@Transactional
-	public R login(String username, String password, String captcha, HttpServletRequest request) throws IOException {
+	public BaseResult login(String username, String password, String captcha, HttpServletRequest request) throws IOException {
 		if (StringUtils.isBlank(username)) {
-			return R.error("请输入用户名！");
+			return BaseResult.error("请输入用户名！");
 		}
 		if (StringUtils.isBlank(password)) {
-			return R.error("请输入密码！");
+			return BaseResult.error("请输入密码！");
 		}
 		String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
 		if (!captcha.equalsIgnoreCase(kaptcha)) {
-			return R.error("验证码不正确");
+			return BaseResult.error("验证码不正确");
 		}
 		try {
 			Subject subject = ShiroUtils.getSubject();
@@ -148,13 +148,13 @@ public class SysLoginController extends AbstractController {
 			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 			subject.login(token);
 		} catch (UnknownAccountException e) {
-			return R.error(e.getMessage());
+			return BaseResult.error(e.getMessage());
 		} catch (IncorrectCredentialsException e) {
-			return R.error(e.getMessage());
+			return BaseResult.error(e.getMessage());
 		} catch (LockedAccountException e) {
-			return R.error(e.getMessage());
+			return BaseResult.error(e.getMessage());
 		} catch (AuthenticationException e) {
-			return R.error("账户验证失败");
+			return BaseResult.error("账户验证失败");
 		}
 		SysUserEntity user = getAdmin();
 		// 登录IP
@@ -165,7 +165,7 @@ public class SysLoginController extends AbstractController {
 		user.setLastLoginTime(currentUnixTime);
 		boolean updateById = sysUserService.updateById(user);
 		if (!updateById) {
-			return R.error("系统异常，请联系管理员!");
+			return BaseResult.error("系统异常，请联系管理员!");
 		}
 		// 记录登录日志
 		SysUserLoginLogEntity entity = new SysUserLoginLogEntity();
@@ -178,7 +178,7 @@ public class SysLoginController extends AbstractController {
 		if (!insert) { // 这里只能抛异常回滚事务
 			throw new RRException("系统异常，请联系管理员!");
 		}
-		return R.ok();
+		return BaseResult.ok();
 	}
 
 	/**

@@ -24,23 +24,23 @@ public class GlobalExceptionHandler {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@ExceptionHandler(RRException.class)
-	public R handleRRException(RRException e) {
-		R r = new R();
-		r.put("code", e.getCode());
-		r.put("msg", e.getMessage());
-		return r;
+	public BaseResult handleRRException(RRException e) {
+		BaseResult baseResult = new BaseResult();
+		baseResult.put("code", e.getCode());
+		baseResult.put("msg", e.getMessage());
+		return baseResult;
 	}
 
 	@ExceptionHandler(DuplicateKeyException.class)
-	public R handleDuplicateKeyException(DuplicateKeyException e) {
+	public BaseResult handleDuplicateKeyException(DuplicateKeyException e) {
 		logger.error(e.getMessage(), e);
-		return R.error("数据库中已存在该记录");
+		return BaseResult.error("数据库中已存在该记录");
 	}
 
 	@ExceptionHandler(AuthorizationException.class)
-	public R handleAuthorizationException(AuthorizationException e) {
+	public BaseResult handleAuthorizationException(AuthorizationException e) {
 		logger.error(e.getMessage(), e);
-		return R.error("没有权限，请联系管理员授权");
+		return BaseResult.error("没有权限，请联系管理员授权");
 	}
 
 	// 添加全局异常处理流程，根据需要设置需要处理的异常
@@ -48,7 +48,7 @@ public class GlobalExceptionHandler {
 	@ResponseBody
 	public Object MethodArgumentNotValidHandler(HttpServletRequest request, Exception exception) throws Exception {// 记录异常日志
 		logger.error(exception.getMessage(), exception);
-		return R.error();
+		return BaseResult.error();
 	}
 
 	// @ExceptionHandler(value = NoHandlerFoundException.class)

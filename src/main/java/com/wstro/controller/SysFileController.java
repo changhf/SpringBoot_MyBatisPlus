@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.wstro.util.*;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.wstro.util.Constant;
 import com.wstro.util.Constant.UploadType;
-import com.wstro.util.DateUtils;
-import com.wstro.util.FileUtil;
-import com.wstro.util.R;
-import com.wstro.util.RRException;
+import com.wstro.util.BaseResult;
 
 import net.coobird.thumbnailator.Thumbnails;
 
@@ -80,20 +77,20 @@ public class SysFileController extends AbstractController {
 	// 此处没有做权限验证
 	@ResponseBody
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public R upload(Integer uploadType, HttpServletRequest request) throws Exception {
+	public BaseResult upload(Integer uploadType, HttpServletRequest request) throws Exception {
 		uploadPath = constant.uploadPath; // 上传文件保存的路径
 		fileContextPath = constant.fileContextPath; // 存放路径上下文
 		MultipartHttpServletRequest multipartRequest = null;
 		if (ServletFileUpload.isMultipartContent(request)) { // 判断request是否有文件上传
 			multipartRequest = (MultipartHttpServletRequest) request;
 		} else {
-			return R.error("请先选择上传的文件");
+			return BaseResult.error("请先选择上传的文件");
 		}
 		Iterator<String> ite = multipartRequest.getFileNames();
 		while (ite.hasNext()) {
 			MultipartFile file = multipartRequest.getFile(ite.next());
 			if (file == null)
-				return R.error("上传文件为空"); // 判断上传的文件是否为空
+				return BaseResult.error("上传文件为空"); // 判断上传的文件是否为空
 			uploadPath = request.getServletContext().getRealPath(uploadPath) + File.separator;
 			fileName = file.getOriginalFilename();
 			logger.info("上传的文件原名称:" + fileName);
@@ -119,7 +116,7 @@ public class SysFileController extends AbstractController {
 			fileHandle(fileUpload);
 			break; // 这里暂时只能上传一个文件
 		}
-		return R.ok().put("filePath", fileContextPath);
+		return BaseResult.ok().put("filePath", fileContextPath);
 	}
 
 	/**
