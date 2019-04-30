@@ -51,6 +51,7 @@ wstro
 - 日志管理：SLF4J、Log4j
 - 模版技术：FreeMarker
 - 页面交互：BootStrap、Layer等
+- elasticsearch，本地安装es服务2.4.5,5.x以上版本不可用，暂不支持，可以注释依赖包关闭启动
 <br> 
 
 
