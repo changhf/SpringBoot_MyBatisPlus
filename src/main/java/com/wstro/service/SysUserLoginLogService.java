@@ -7,8 +7,8 @@ import com.wstro.entity.SysUserLoginLogEntity;
 /**
  * 用户登录日志
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 public interface SysUserLoginLogService extends IService<SysUserLoginLogEntity> {

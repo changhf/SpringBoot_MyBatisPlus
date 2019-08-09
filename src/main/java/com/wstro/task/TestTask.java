@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 /**
  * 测试定时任务(fixedRate在项目启动时会启动，cron不会启动)
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 @Component // 此注解必加

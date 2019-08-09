@@ -51,7 +51,6 @@ wstro
 - 日志管理：SLF4J、Log4j
 - 模版技术：FreeMarker
 - 页面交互：BootStrap、Layer等
-- elasticsearch，本地安装es服务2.4.5,5.x以上版本不可用，暂不支持，可以注释依赖包关闭启动
 <br> 
 
 
@@ -65,7 +64,7 @@ wstro
 - 如果不想要Redis服务,注解掉RedisConfig.java	的 @Configuration注解
 
 - Eclipse、IDEA运行App.java，则可启动项目
-- 项目访问路径：http://localhost:8088/wstro/admin/
+- 项目访问路径：http://localhost:8080/admin/login.html
 - 账号密码：admin/admin
 
 
@@ -76,30 +75,9 @@ wstro
 			spring.datasource.username
 			spring.datasource.password
 			
-项目整合了多`数据源`,注解方法  @DataSource(这里写数据源名称) 如 DataSourceContextHolder.DATA_SOURCE_B 建议数据源名称都定义在此类中，方便维护
+项目整合了多数据源,注解方法  @DataSource(这里写数据源名称) 如 DataSourceContextHolder.DATA_SOURCE_B 建议数据源名称都定义在此类中，方便维护
 多数据源需要自己去开启，具体在DataSourceConfig.java
 						
-
-
-启动说明:
-	项目依赖mysql、Redis服务。
-
-	启动命令:
-		(如果有问题。请尝试强制删除target目录下的所有文件)
-		mvn clean package -P build tomcat7:run-war-only -f pom.xml
-	
-	打包命令:
-		(如果有问题。请尝试强制删除target目录下的所有文件)
-		mvn clean package spring-boot:repackage
-		会在target目录生成wstro.war  直接部署Tomcat运行
-	
-	访问地址:
-			localhost:8080/admin
-			
-	注意：本项目使用的是  JDK1.8 
-		 可自行修改 pom文件的 maven.compiler.source  maven.compiler.target为1.7
-
-
 
 
 部署:application.properties更改指定部署模式还是开发模式 dev / prod  
@@ -120,28 +98,3 @@ wstro
 		spring.redis 设置Redis 服务器地址 密码 及端口
 		
 		spring.datasource.url 设置数据库连接信息  账号(username) 及 密码(password)
-
-
-开发者:
-	
-	调试直接运行  com.wstro.App.java Run As  java Application
-	
-	打包:
-		mvn运行  mvn clean package spring-boot:repackage
-		最后在target目录下面生成一个war包 直接部署Tomcat运行
-	
-	
-	此处Redis缓存注解和EhCache缓存注解只能使用1个
-	使用
-		@Primary标注
-
-
-
-
-**演示效果图：**
-![演示效果图](https://raw.githubusercontent.com/JoeyBling/JoeyBling.github.io/master/screenshots/20170711085331.png "在这里输入图片标题")
-![演示效果图](https://raw.githubusercontent.com/JoeyBling/JoeyBling.github.io/master/screenshots/20170711085520.png "在这里输入图片标题")
-![演示效果图](https://github.com/JoeyBling/JoeyBling.github.io/blob/master/screenshots/20170711093453.png?raw=true "在这里输入图片标题")
-![演示效果图](https://raw.githubusercontent.com/JoeyBling/JoeyBling.github.io/master/screenshots/20170711093508.png "在这里输入图片标题")
-![演示效果图](https://raw.githubusercontent.com/JoeyBling/JoeyBling.github.io/master/screenshots/20170711093523.png "在这里输入图片标题")
-![演示效果图](https://raw.githubusercontent.com/JoeyBling/JoeyBling.github.io/master/screenshots/20170711093544.png "在这里输入图片标题")

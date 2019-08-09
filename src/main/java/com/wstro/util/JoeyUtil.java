@@ -15,11 +15,11 @@ import java.util.regex.Pattern;
 /**
  * 工具类
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
-public class JoeyUtil {
+public class changhfUtil {
 
 	/**
 	 * 如果为空或undefined返回空
@@ -233,7 +233,7 @@ public class JoeyUtil {
 	 * @throws ParseException
 	 */
 	public static Long stampDate(Date date, String format) throws NumberFormatException, ParseException {
-		return JoeyUtil.dateToStamp(DateUtils.format(date, format));
+		return changhfUtil.dateToStamp(DateUtils.format(date, format));
 	}
 
 	/**
@@ -243,7 +243,7 @@ public class JoeyUtil {
 	 * @return
 	 */
 	public static Date fomartDate(Long time) {
-		return JoeyUtil.stampToDate(Long.toString(time));
+		return changhfUtil.stampToDate(Long.toString(time));
 	}
 
 	/**

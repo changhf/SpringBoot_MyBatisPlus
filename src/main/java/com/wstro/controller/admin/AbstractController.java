@@ -16,8 +16,8 @@ import java.util.Map;
 /**
  * Controller公共组件
  *
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  */
 abstract class AbstractController {
     protected final Logger logger = LoggerFactory.getLogger(getClass());

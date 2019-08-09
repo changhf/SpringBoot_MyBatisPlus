@@ -10,8 +10,8 @@ import com.wstro.entity.SysRoleEntity;
 /**
  * 角色
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 public interface SysRoleService extends IService<SysRoleEntity> {

@@ -20,8 +20,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * Redis配置
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 @Configuration

@@ -15,7 +15,6 @@ import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,8 +33,8 @@ import java.util.List;
 /**
  * 管理员登录相关
  *
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  */
 @Controller
 @RequestMapping("/admin")
@@ -111,18 +110,18 @@ public class SysLoginController extends AbstractController {
      * @throws IOException
      */
     @ResponseBody
-    @PostMapping(value = "/sys/login")
+    @RequestMapping(value = "/sys/login", method = RequestMethod.POST)
     @Transactional
-    public BaseResult login(String username, String password, String captcha, HttpServletRequest request) throws IOException {
+    public R login(String username, String password, String captcha, HttpServletRequest request) throws IOException {
         if (StringUtils.isBlank(username)) {
-            return BaseResult.error("请输入用户名！");
+            return R.error("请输入用户名！");
         }
         if (StringUtils.isBlank(password)) {
-            return BaseResult.error("请输入密码！");
+            return R.error("请输入密码！");
         }
         String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
         if (!captcha.equalsIgnoreCase(kaptcha)) {
-            return BaseResult.error("验证码不正确");
+            return R.error("验证码不正确");
         }
         try {
             Subject subject = ShiroUtils.getSubject();
@@ -131,13 +130,13 @@ public class SysLoginController extends AbstractController {
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
             subject.login(token);
         } catch (UnknownAccountException e) {
-            return BaseResult.error(e.getMessage());
+            return R.error(e.getMessage());
         } catch (IncorrectCredentialsException e) {
-            return BaseResult.error(e.getMessage());
+            return R.error(e.getMessage());
         } catch (LockedAccountException e) {
-            return BaseResult.error(e.getMessage());
+            return R.error(e.getMessage());
         } catch (AuthenticationException e) {
-            return BaseResult.error("账户验证失败");
+            return R.error("账户验证失败");
         }
         SysUserEntity user = getAdmin();
         // 登录IP
@@ -148,7 +147,7 @@ public class SysLoginController extends AbstractController {
         user.setLastLoginTime(currentUnixTime);
         boolean updateById = sysUserService.updateById(user);
         if (!updateById) {
-            return BaseResult.error("系统异常，请联系管理员!");
+            return R.error("系统异常，请联系管理员!");
         }
         // 记录登录日志
         SysUserLoginLogEntity entity = new SysUserLoginLogEntity();
@@ -161,7 +160,7 @@ public class SysLoginController extends AbstractController {
         if (!insert) { // 这里只能抛异常回滚事务
             throw new RRException("系统异常，请联系管理员!");
         }
-        return BaseResult.ok();
+        return R.ok();
     }
 
     /**

@@ -5,7 +5,7 @@ import java.io.Writer;
 import java.util.Map;
 
 import com.wstro.util.DateUtils;
-import com.wstro.util.JoeyUtil;
+import com.wstro.util.changhfUtil;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
@@ -20,8 +20,8 @@ import freemarker.template.TemplateScalarModel;
  * 使用:[#-- 自定义标签格式化时间戳 ?c防止时间戳有,逗号 --]
 		[@formatTime unix="${entity.createTime?c}" pattern="yyyy-MM-dd HH:mm:ss"] [/@formatTime]
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 public class FormatTimeFTLHelper implements TemplateDirectiveModel {
@@ -45,7 +45,7 @@ public class FormatTimeFTLHelper implements TemplateDirectiveModel {
 			asString = pattern.getAsString();
 		}
 		long flag = Long.valueOf(scalarModel.getAsString());
-		out.write(DateUtils.format(JoeyUtil.fomartDate(flag * 1000), asString));
+		out.write(DateUtils.format(changhfUtil.fomartDate(flag * 1000), asString));
 		body.render(out);
 	}
 

@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * 根据IP地址获取详细的地域信息
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 public class GetIpAddress {

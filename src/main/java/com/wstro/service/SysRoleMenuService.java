@@ -8,8 +8,8 @@ import com.wstro.entity.SysRoleMenuEntity;
 /**
  * 角色与菜单对应关系
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 public interface SysRoleMenuService extends IService<SysRoleMenuEntity> {

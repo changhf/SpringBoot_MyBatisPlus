@@ -9,8 +9,8 @@ import eu.bitwalker.useragentutils.UserAgent;
 /**
  * HttpServletRequest帮助类
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 public class HttpUtil {

@@ -6,8 +6,8 @@ import com.wstro.util.BaseDao;
 /**
  * 角色管理
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 public interface SysRoleDao extends BaseDao<SysRoleEntity> {

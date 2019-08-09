@@ -16,17 +16,17 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.wstro.test.AppTest;
+import com.wstro.test.ApplicationTest;
 
 /**
  * 系统用户控制器测试
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 @WebAppConfiguration
-public class SysUserControllerTest extends AppTest {
+public class SysUserControllerTest extends ApplicationTest {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	MockMvc mvc;

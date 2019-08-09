@@ -3,8 +3,8 @@ package com.wstro.util;
 /**
  * EhCache缓存名
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 public class EhCacheNames {

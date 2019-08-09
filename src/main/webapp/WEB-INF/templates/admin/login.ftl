@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>XX管理系统</title>
+    <title>Activiti管理系统</title>
     [#include "/admin/header.ftl"]
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
@@ -20,7 +20,7 @@
 <script zIndex="-1" src="${rc.contextPath}/statics/js/admin/canvas-nest.min.js"></script>
 <div class="login-box">
     <div class="login-logo">
-        <b>XX管理系统</b>
+        <b>Activiti管理系统</b>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">

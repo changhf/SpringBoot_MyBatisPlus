@@ -11,8 +11,8 @@ import com.google.code.kaptcha.util.Config;
 /**
  * 验证码生成器
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 @Configuration

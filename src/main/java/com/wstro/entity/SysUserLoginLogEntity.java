@@ -12,8 +12,8 @@ import lombok.Data;
 /***
  * 用户登录日志
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 @Data

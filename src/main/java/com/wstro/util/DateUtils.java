@@ -8,8 +8,8 @@ import java.util.Date;
 /**
  * 日期处理
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 public class DateUtils {
@@ -129,7 +129,7 @@ public class DateUtils {
 	 * @throws Exception
 	 */
 	public static boolean isWeekendByTimestamp(String timestamp) throws Exception {
-		return DateUtils.isWeekend(JoeyUtil.stampToDate(timestamp));
+		return DateUtils.isWeekend(changhfUtil.stampToDate(timestamp));
 	}
 
 	/**

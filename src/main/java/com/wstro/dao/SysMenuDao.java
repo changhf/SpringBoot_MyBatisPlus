@@ -8,8 +8,8 @@ import com.wstro.util.BaseDao;
 /**
  * 菜单管理
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 public interface SysMenuDao extends BaseDao<SysMenuEntity> {

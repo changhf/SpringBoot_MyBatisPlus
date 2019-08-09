@@ -9,8 +9,8 @@ import com.wstro.entity.SysUserEntity;
 /**
  * 系统用户
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 public interface SysUserService extends IService<SysUserEntity> {

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 /**
  * 常量帮助类
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 @Component
@@ -34,8 +34,8 @@ public class Constant {
 	/**
 	 * 菜单类型
 	 * 
-	 * @author Joey
-	 * @Email 2434387555@qq.com
+	 * @author changhf
+	 * @date
 	 *
 	 */
 	public enum MenuType {
@@ -66,8 +66,8 @@ public class Constant {
 	/**
 	 * 上传文件类型
 	 * 
-	 * @author Joey
-	 * @Email 2434387555@qq.com
+	 * @author changhf
+	 * @date
 	 *
 	 */
 	public enum UploadType {

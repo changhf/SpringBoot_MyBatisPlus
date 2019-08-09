@@ -13,8 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 /**
  * 系统用户测试
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 @RunWith(SpringRunner.class)

@@ -10,8 +10,8 @@ import com.wstro.util.Constant;
 
 /**
  * @Configuration导致Shiro比Service实例化先执行
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 @Component

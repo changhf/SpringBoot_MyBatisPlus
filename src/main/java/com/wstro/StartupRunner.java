@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 /**
  * 启动SpringBoot会执行 @Order标识执行顺序 值越小越先执行
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 @Component

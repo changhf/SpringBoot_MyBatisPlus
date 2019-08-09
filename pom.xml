@@ -250,6 +250,7 @@
 
     <!-- 编译版本 -->
     <build>
+        <finalName>wstro</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -263,23 +264,7 @@
                 </configuration>
             </plugin>
 
-
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <!-- maven打包的时候告诉maven不需要web.xml,否刚会报找不到web.xml错误 -->
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok-maven-plugin</artifactId>
-                <version>1.16.8.0</version>
-            </plugin>
-
         </plugins>
-        <finalName>wstro</finalName>
-    </build>
 
+    </build>
 </project>

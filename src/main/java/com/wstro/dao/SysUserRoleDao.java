@@ -9,8 +9,8 @@ import com.wstro.util.BaseDao;
 /**
  * 用户与角色对应关系
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 public interface SysUserRoleDao extends BaseDao<SysUserRoleEntity> {

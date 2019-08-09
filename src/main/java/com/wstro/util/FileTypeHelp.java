@@ -17,8 +17,8 @@ import javax.imageio.stream.ImageInputStream;
 /**
  * 文件帮助类
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 public class FileTypeHelp {

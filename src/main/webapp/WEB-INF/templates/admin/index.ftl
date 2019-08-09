@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>XX管理系统</title>
+    <title>Activiti管理系统</title>
     [#include "/admin/header.ftl"]
     <!-- iCheck -->
     <script src="${rc.contextPath}/statics/common/icheck/icheck.min.js"></script>

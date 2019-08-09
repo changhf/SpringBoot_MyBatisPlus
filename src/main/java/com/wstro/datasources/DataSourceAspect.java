@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 /**
  * 切换数据源Advice
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 @Aspect

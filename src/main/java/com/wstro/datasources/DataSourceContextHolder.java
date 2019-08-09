@@ -3,8 +3,8 @@ package com.wstro.datasources;
 /**
  * 数据源切换的工具类
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 public class DataSourceContextHolder {

@@ -30,8 +30,8 @@ import com.wstro.datasources.DynamicDataSource;
 /**
  * Druid数据源配置
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 @Configuration

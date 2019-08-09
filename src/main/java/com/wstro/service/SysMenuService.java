@@ -9,8 +9,8 @@ import com.wstro.entity.SysMenuEntity;
 /**
  * 菜单管理
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 public interface SysMenuService extends IService<SysMenuEntity> {

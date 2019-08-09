@@ -12,8 +12,8 @@ import org.springframework.test.context.junit4.SpringRunner;
  * Redis读写测试(项目打包会报错java.lang.ClassNotFoundException:
  * com.jagregory.shiro.freemarker.ShiroTags)
  * 
- * @author Joey
- * @Email 2434387555@qq.com
+ * @author changhf
+ * @date
  *
  */
 @RunWith(SpringRunner.class)
